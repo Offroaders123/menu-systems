@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+<title>Menu Systems Revised</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+</style>
+
+</head>
+
+<body>
+
+<h1>Menu Systems Revised</h1>
+
+<button data-menu="file">File</button>
+
+<script type="demo-not-working">
+// hypothetical
+import { Menu } from "menu-systems";
+
+const file = Menu()
+  .item("New", "Super+N", () => {
+    createEditor();
+  })
+  .item("Open", "Super+O", () => {
+    openEditor();
+  })
+  .item("Save", "Super+S", () => {
+    saveEditor();
+  });
+</script>
+
+</body>
+
+</html>
