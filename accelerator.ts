@@ -28,20 +28,31 @@ export const Accelerator: ((fig: string) => string[])[] = [
 //   }
 // }
 
+// function generateAccelerators(): string[] {
+//   const accelerators: string[] = [];
+
+//   for (const abc of FigureKey) {
+//     for (const accs of Accelerator) {
+//       for (const acc of accs(`${abc}`)) {
+//         accelerators.push(acc);
+//       }
+//     }
+//   }
+
+//   accelerators.sort();
+
+//   return accelerators;
+// }
+
 function generateAccelerators(): string[] {
-  const accelerators: string[] = [];
-
-  for (const abc of FigureKey) {
-    for (const accs of Accelerator) {
-      for (const acc of accs(`${abc}`)) {
-        accelerators.push(acc);
-      }
-    }
-  }
-
-  accelerators.sort();
-
-  return accelerators;
+  return FigureKey
+    .map(abc => Accelerator
+      .map(accs =>
+        accs(`${abc}`)
+      )
+    )
+    .flat(2)
+    .sort();
 }
 
 for (const acc of generateAccelerators()) {
