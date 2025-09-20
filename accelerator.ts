@@ -16,26 +16,26 @@ export type NumericKey = typeof NumericKey[number];
 export const FigureKey: (AlphabeticKey | NumericKey)[] = [...AlphabeticKey, ...NumericKey];
 export type FigureKey = typeof FigureKey[number];
 
-export const Accelerator: ((fig: string) => string[])[] = [
-  fig => MetaKey.map(m => `${m}+${fig}`),
-  fig => [`${AltKey}+${fig}`],
-  fig => MetaKey.map(m => `${m}+${ShiftKey}+${fig}`),
-  fig => [`${AltKey}+${ShiftKey}+${fig}`],
-  fig => MetaKey.map(m => `${m}+${AltKey}+${fig}`),
-  fig => MetaKey.map(m => `${m}+${AltKey}+${ShiftKey}+${fig}`),
-];
-
-function generateAccelerators(): string[] {
-  return FigureKey
-    .map(abc => Accelerator
-      .map(accs =>
-        accs(`${abc}`)
-      )
+export const Accelerator: Accelerator[] = FigureKey
+  .map(figure => [
+    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${figure}` as const),
+    (figure: FigureKey): Accelerator[] => [`${AltKey}+${figure}`],
+    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${ShiftKey}+${figure}` as const),
+    (figure: FigureKey): Accelerator[] => [`${AltKey}+${ShiftKey}+${figure}`],
+    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${AltKey}+${figure}` as const),
+    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${AltKey}+${ShiftKey}+${figure}` as const),
+  ]
+    .map(accs =>
+      accs(figure)
     )
-    .flat(2)
-    .sort();
-}
+  )
+  .flat(2)
+  .sort();
 
-for (const acc of generateAccelerators()) {
-  console.log(acc);
-}
+export type Accelerator =
+  | `${MetaKey}+${FigureKey}`
+  | `${AltKey}+${FigureKey}`
+  | `${MetaKey}+${ShiftKey}+${FigureKey}`
+  | `${AltKey}+${ShiftKey}+${FigureKey}`
+  | `${MetaKey}+${AltKey}+${FigureKey}`
+  | `${MetaKey}+${AltKey}+${ShiftKey}+${FigureKey}`;
