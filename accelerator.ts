@@ -21,10 +21,28 @@ export const Accelerator: ((fig: string) => string[])[] = [
   fig => MetaKey.map(m => `${m}+${AltKey}+${ShiftKey}+${fig}`),
 ];
 
-for (const abc of FigureKey) {
-  for (const accs of Accelerator) {
-    for (const acc of accs(`${abc}`)) {
-      console.log(acc);
+// for (const abc of FigureKey) {
+//   for (const accs of Accelerator) {
+//     for (const acc of accs(`${abc}`)) {
+//       console.log(acc);
+//     }
+//   }
+// }
+
+function generateAccelerators(): string[] {
+  const accelerators: string[] = [];
+
+  for (const abc of FigureKey) {
+    for (const accs of Accelerator) {
+      for (const acc of accs(`${abc}`)) {
+        accelerators.push(acc);
+      }
     }
   }
+
+  return accelerators;
+}
+
+for (const acc of generateAccelerators()) {
+  console.log(acc);
 }
