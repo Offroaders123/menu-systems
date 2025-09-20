@@ -1,4 +1,4 @@
-import { createMenu, type Menu } from "menu-systems";
+import { createMenu, type Menu } from "./menu-systems.ts";
 
 declare function createEditor(): void;
 declare function openEditor(): void;
