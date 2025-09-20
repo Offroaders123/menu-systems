@@ -4,7 +4,6 @@ export type Accelerator =
   | `${MetaKey}+${ShiftKey}+${FigureKey}`
   | `${AltKey}+${ShiftKey}+${FigureKey}`
   | `${MetaKey}+${AltKey}+${FigureKey}`
-  | `${AltKey}+${ShiftKey}+${FigureKey}`
   | `${MetaKey}+${AltKey}+${ShiftKey}+${FigureKey}`;
 
 export type MetaKey = "Super" | "Cmd" | "Ctrl";

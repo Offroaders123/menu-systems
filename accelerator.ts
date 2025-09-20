@@ -17,7 +17,6 @@ export const Accelerator: ((fig: string) => string[])[] = [
   fig => MetaKey.map(m => `${m}+${ShiftKey}+${fig}`),
   fig => [`${AltKey}+${ShiftKey}+${fig}`],
   fig => MetaKey.map(m => `${m}+${AltKey}+${fig}`),
-  fig => [`${AltKey}+${ShiftKey}+${fig}`],
   fig => MetaKey.map(m => `${m}+${AltKey}+${ShiftKey}+${fig}`),
 ];
 
