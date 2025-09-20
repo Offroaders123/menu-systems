@@ -40,6 +40,8 @@ function generateAccelerators(): string[] {
     }
   }
 
+  accelerators.sort();
+
   return accelerators;
 }
 
