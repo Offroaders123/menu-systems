@@ -1,5 +1,5 @@
-export const MetaKey = ["Super", "Cmd", "Ctrl"] as const;
-export type MetaKey = typeof MetaKey[number];
+export const SuperKey = ["Super", "Cmd", "Ctrl"] as const;
+export type SuperKey = typeof SuperKey[number];
 
 export const ShiftKey = "Shift";
 export type ShiftKey = typeof ShiftKey;
@@ -16,23 +16,23 @@ export type NumericKey = typeof NumericKey[number];
 export const FigureKey: FigureKey[] = [...AlphabeticKey, ...NumericKey];
 export type FigureKey = AlphabeticKey | NumericKey;
 
-export const MetaFigureKey = FigureKey.map(figure => MetaKey.map(meta => `${meta}+${figure}` as const)).flat(1).sort();
-export type MetaFigureKey = typeof MetaFigureKey[number];
+export const SuperFigureKey = FigureKey.map(figure => SuperKey.map(Super => `${Super}+${figure}` as const)).flat(1).sort();
+export type SuperFigureKey = typeof SuperFigureKey[number];
 
 export const AltFigureKey = FigureKey.map(figure => `${AltKey}+${figure}` as const).sort();
 export type AltFigureKey = typeof AltFigureKey[number];
 
-export const MetaShiftKey = FigureKey.map(figure => MetaKey.map(meta => `${meta}+${ShiftKey}+${figure}` as const)).flat(1).sort();
-export type MetaShiftKey = typeof MetaShiftKey[number];
+export const SuperShiftKey = FigureKey.map(figure => SuperKey.map(Super => `${Super}+${ShiftKey}+${figure}` as const)).flat(1).sort();
+export type SuperShiftKey = typeof SuperShiftKey[number];
 
 export const AltShiftKey = FigureKey.map(figure => `${AltKey}+${ShiftKey}+${figure}` as const).sort();
 export type AltShiftKey = typeof AltShiftKey[number];
 
-export const MetaAltFigureKey = FigureKey.map(figure => MetaKey.map(meta => `${meta}+${AltKey}+${figure}` as const)).flat(1).sort();
-export type MetaAltFigureKey = typeof MetaAltFigureKey[number];
+export const SuperAltFigureKey = FigureKey.map(figure => SuperKey.map(Super => `${Super}+${AltKey}+${figure}` as const)).flat(1).sort();
+export type SuperAltFigureKey = typeof SuperAltFigureKey[number];
 
-export const MetaAltShiftFigureKey = FigureKey.map(figure => MetaKey.map(meta => `${meta}+${AltKey}+${ShiftKey}+${figure}` as const)).flat(1).sort();
-export type MetaAltShiftFigureKey = typeof MetaAltShiftFigureKey[number];
+export const SuperAltShiftFigureKey = FigureKey.map(figure => SuperKey.map(Super => `${Super}+${AltKey}+${ShiftKey}+${figure}` as const)).flat(1).sort();
+export type SuperAltShiftFigureKey = typeof SuperAltShiftFigureKey[number];
 
-export const Accelerator: Accelerator[] = [...MetaFigureKey, ...AltFigureKey, ...MetaShiftKey, ...AltShiftKey, ...MetaAltFigureKey, ...MetaAltShiftFigureKey].sort();
-export type Accelerator = MetaFigureKey | AltFigureKey | MetaShiftKey | AltShiftKey | MetaAltFigureKey | MetaAltShiftFigureKey;
+export const Accelerator: Accelerator[] = [...SuperFigureKey, ...AltFigureKey, ...SuperShiftKey, ...AltShiftKey, ...SuperAltFigureKey, ...SuperAltShiftFigureKey].sort();
+export type Accelerator = SuperFigureKey | AltFigureKey | SuperShiftKey | AltShiftKey | SuperAltFigureKey | SuperAltShiftFigureKey;
