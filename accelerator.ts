@@ -18,12 +18,12 @@ export type FigureKey = typeof FigureKey[number];
 
 export const Accelerator: Accelerator[] = FigureKey
   .map(figure => [
-    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${figure}` as const),
-    (figure: FigureKey): Accelerator[] => [`${AltKey}+${figure}`],
-    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${ShiftKey}+${figure}` as const),
-    (figure: FigureKey): Accelerator[] => [`${AltKey}+${ShiftKey}+${figure}`],
-    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${AltKey}+${figure}` as const),
-    (figure: FigureKey): Accelerator[] => MetaKey.map(meta => `${meta}+${AltKey}+${ShiftKey}+${figure}` as const),
+    (figure: FigureKey): MetaFigureKey[] => MetaKey.map((meta): MetaFigureKey => `${meta}+${figure}`),
+    (figure: FigureKey): AltFigureKey[] => [`${AltKey}+${figure}`],
+    (figure: FigureKey): MetaShiftKey[] => MetaKey.map((meta): MetaShiftKey => `${meta}+${ShiftKey}+${figure}`),
+    (figure: FigureKey): AltShiftKey[] => [`${AltKey}+${ShiftKey}+${figure}`],
+    (figure: FigureKey): MetaAltFigureKey[] => MetaKey.map((meta): MetaAltFigureKey => `${meta}+${AltKey}+${figure}`),
+    (figure: FigureKey): MetaAltShiftFigureKey[] => MetaKey.map((meta): MetaAltShiftFigureKey => `${meta}+${AltKey}+${ShiftKey}+${figure}`),
   ]
     .map(accs =>
       accs(figure)
@@ -32,10 +32,10 @@ export const Accelerator: Accelerator[] = FigureKey
   .flat(2)
   .sort();
 
-export type Accelerator =
-  | `${MetaKey}+${FigureKey}`
-  | `${AltKey}+${FigureKey}`
-  | `${MetaKey}+${ShiftKey}+${FigureKey}`
-  | `${AltKey}+${ShiftKey}+${FigureKey}`
-  | `${MetaKey}+${AltKey}+${FigureKey}`
-  | `${MetaKey}+${AltKey}+${ShiftKey}+${FigureKey}`;
+export type Accelerator = MetaFigureKey | AltFigureKey | MetaShiftKey | AltShiftKey | MetaAltFigureKey | MetaAltShiftFigureKey;
+export type MetaFigureKey = `${MetaKey}+${FigureKey}`;
+export type AltFigureKey = `${AltKey}+${FigureKey}`;
+export type MetaShiftKey = `${MetaKey}+${ShiftKey}+${FigureKey}`;
+export type AltShiftKey = `${AltKey}+${ShiftKey}+${FigureKey}`;
+export type MetaAltFigureKey = `${MetaKey}+${AltKey}+${FigureKey}`;
+export type MetaAltShiftFigureKey = `${MetaKey}+${AltKey}+${ShiftKey}+${FigureKey}`;
