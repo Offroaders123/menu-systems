@@ -13,8 +13,8 @@ export type AlphabeticKey = typeof AlphabeticKey[number];
 export const NumericKey = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const;
 export type NumericKey = typeof NumericKey[number];
 
-export const FigureKey = [...AlphabeticKey, ...NumericKey];
-export type FigureKey = typeof FigureKey[number];
+export const FigureKey: FigureKey[] = [...AlphabeticKey, ...NumericKey];
+export type FigureKey = AlphabeticKey | NumericKey;
 
 export const MetaFigureKey = FigureKey.map(figure => MetaKey.map(meta => `${meta}+${figure}` as const)).flat(1).sort();
 export type MetaFigureKey = typeof MetaFigureKey[number];
@@ -34,5 +34,5 @@ export type MetaAltFigureKey = typeof MetaAltFigureKey[number];
 export const MetaAltShiftFigureKey = FigureKey.map(figure => MetaKey.map(meta => `${meta}+${AltKey}+${ShiftKey}+${figure}` as const)).flat(1).sort();
 export type MetaAltShiftFigureKey = typeof MetaAltShiftFigureKey[number];
 
-export const Accelerator = [...MetaFigureKey, ...AltFigureKey, ...MetaShiftKey, ...AltShiftKey, ...MetaAltFigureKey, ...MetaAltShiftFigureKey].sort();
-export type Accelerator = typeof Accelerator[number];
+export const Accelerator: Accelerator[] = [...MetaFigureKey, ...AltFigureKey, ...MetaShiftKey, ...AltShiftKey, ...MetaAltFigureKey, ...MetaAltShiftFigureKey].sort();
+export type Accelerator = MetaFigureKey | AltFigureKey | MetaShiftKey | AltShiftKey | MetaAltFigureKey | MetaAltShiftFigureKey;
