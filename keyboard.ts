@@ -1,4 +1,12 @@
-import { type Accelerator } from "./accelerator.ts";
+import { type Accelerator, type AcceleratorState, parseAccelerator } from "./accelerator.ts";
+
+export function hasAccelerator(event: KeyboardEvent, accelerator: Accelerator): boolean {
+  const { meta, shift, alt, figure }: AcceleratorState = parseAccelerator(accelerator);
+  if (event.shiftKey !== shift) return false;
+  if (event.altKey !== alt) return false;
+  if (event.key.toUpperCase() !== figure) return false;
+  return true;
+}
 
 export type ShortcutCallback = (event: KeyboardEvent) => void;
 
