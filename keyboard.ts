@@ -1,5 +1,9 @@
 import { type Accelerator } from "./accelerator.ts";
 
+export function appleDevice(): boolean {
+  return (/(macOS|Mac|iPhone|iPad|iPod)/i.test(navigator.userAgentData?.platform ?? navigator.platform));
+}
+
 export function toAccelerator(event: KeyboardEvent): Accelerator {
   const { metaKey, ctrlKey, shiftKey, altKey, key } = event;
 }
@@ -22,5 +26,16 @@ export class Shortcut implements Disposable {
 
   [Symbol.dispose](): void {
     document.removeEventListener("keydown", this.listener);
+  }
+}
+
+declare global {
+  interface Navigator {
+    /** Not supported everywhere yet */
+    readonly userAgentData?: NavigatorUserAgentData;
+  }
+
+  interface NavigatorUserAgentData {
+    readonly platform: string;
   }
 }
