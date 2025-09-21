@@ -36,18 +36,3 @@ export type MetaAltShiftFigureKey = typeof MetaAltShiftFigureKey[number];
 
 export const Accelerator: Accelerator[] = [...MetaFigureKey, ...AltFigureKey, ...MetaShiftKey, ...AltShiftKey, ...MetaAltFigureKey, ...MetaAltShiftFigureKey].sort();
 export type Accelerator = MetaFigureKey | AltFigureKey | MetaShiftKey | AltShiftKey | MetaAltFigureKey | MetaAltShiftFigureKey;
-
-export interface AcceleratorState {
-  meta: boolean;
-  shift: boolean;
-  alt: boolean;
-  figure: string;
-}
-
-export function parseAccelerator(accelerator: Accelerator): AcceleratorState {
-  const meta: boolean = MetaKey.some(meta => accelerator.includes(meta));
-  const shift: boolean = accelerator.includes(ShiftKey);
-  const alt: boolean = accelerator.includes(AltKey);
-  const figure: FigureKey = accelerator.split("+").pop()!;
-  return { meta, shift, alt, figure };
-}
