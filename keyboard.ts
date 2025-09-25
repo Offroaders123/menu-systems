@@ -1,8 +1,6 @@
 import { type Accelerator } from "./accelerator.ts";
 
-export function appleDevice(): boolean {
-  return (/(macOS|Mac|iPhone|iPad|iPod)/i.test(navigator.userAgentData?.platform ?? navigator.platform));
-}
+export const appleDevice: boolean = /(macOS|Mac|iPhone|iPad|iPod)/i.test(navigator.userAgentData?.platform ?? navigator.platform);
 
 export function toAccelerator(event: KeyboardEvent): Accelerator {
   const { metaKey, ctrlKey, shiftKey, altKey, key } = event;
