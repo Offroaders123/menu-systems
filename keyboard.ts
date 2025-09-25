@@ -9,18 +9,16 @@ export function toAccelerator(event: KeyboardEvent): Accelerator {
   const figureKey: FigureKey = FigureKey.includes(key as FigureKey) ? key as FigureKey : (() => {
     throw new TypeError(`Key '${key}' is not a valid figure key`);
   })();
-  const parts: string[] = [];
+  const modifiers: [boolean, string][] = [
+    [superKey, SuperKey[0]],
+    [altKey, AltKey],
+    [shiftKey, ShiftKey]
+  ];
 
-  if (superKey) {
-    parts.push(SuperKey[0]);
-  }
-  if (altKey) {
-    parts.push(AltKey);
-  }
-  if (shiftKey) {
-    parts.push(ShiftKey);
-  }
-  parts.push(figureKey);
+  const parts: string[] = modifiers
+    .filter(([flag]) => flag)
+    .map(([_, label]) => label)
+    .concat(figureKey);
 
   const maybeAccelerator: string = parts.join("+");
   const accelerator: Accelerator = Accelerator.includes(maybeAccelerator as Accelerator) ? maybeAccelerator as Accelerator : (() => {
