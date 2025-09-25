@@ -1,4 +1,4 @@
-import { AltFigureKey, AltKey, AltShiftKey, FigureKey, ShiftKey, SuperAltFigureKey, SuperAltShiftFigureKey, SuperFigureKey, SuperKey, SuperShiftKey, type Accelerator } from "./accelerator.ts";
+import { Accelerator, AltKey, FigureKey, ShiftKey, SuperKey } from "./accelerator.ts";
 
 export const appleDevice: boolean = /(macOS|Mac|iPhone|iPad|iPod)/i.test(navigator.userAgentData?.platform ?? navigator.platform);
 
@@ -9,30 +9,25 @@ export function toAccelerator(event: KeyboardEvent): Accelerator {
   const figureKey: FigureKey = FigureKey.includes(key as FigureKey) ? key as FigureKey : (() => {
     throw new TypeError(`Key '${key}' is not a valid figure key`);
   })();
+  const parts: string[] = [];
 
   if (superKey) {
-    return `${SuperKey[0]}+${figureKey}` satisfies SuperFigureKey;
+    parts.push(SuperKey[0]);
   }
-
   if (altKey) {
-    return `${AltKey}+${figureKey}` satisfies AltFigureKey;
+    parts.push(AltKey);
   }
+  if (shiftKey) {
+    parts.push(ShiftKey);
+  }
+  parts.push(figureKey);
 
-  if (superKey && shiftKey) {
-    return `${SuperKey[0]}+${ShiftKey}+${figureKey}` satisfies SuperShiftKey;
-  }
+  const maybeAccelerator: string = parts.join("+");
+  const accelerator: Accelerator = Accelerator.includes(maybeAccelerator as Accelerator) ? maybeAccelerator as Accelerator : (() => {
+    throw new TypeError(`Accelerator '${maybeAccelerator}' is not a valid accelerator`);
+  })();
 
-  if (altKey && shiftKey) {
-    return `${AltKey}+${ShiftKey}+${figureKey}` satisfies AltShiftKey;
-  }
-
-  if (superKey && altKey) {
-    return `${SuperKey[0]}+${AltKey}+${figureKey}` satisfies SuperAltFigureKey;
-  }
-
-  if (superKey && altKey && shiftKey) {
-    return `${SuperKey[0]}+${AltKey}+${ShiftKey}+${figureKey}` satisfies SuperAltShiftFigureKey;
-  }
+  return accelerator;
 }
 
 export type ShortcutCallback = (event: KeyboardEvent) => void;
